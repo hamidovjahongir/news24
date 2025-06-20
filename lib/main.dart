@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news/features/home/data/repository/news_repository.dart';
 import 'package:news/features/home/presentation/bloc/news_bloc.dart';
-import 'package:news/features/home/presentation/pages/home_page.dart';
+import 'package:news/features/main/presentation/pages/main_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
-        home: HomePage(),
+        home: MainPage(),
       ),
     );
   }
