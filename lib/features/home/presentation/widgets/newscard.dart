@@ -33,7 +33,7 @@ class NewsCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  news.title,
+                  news.title ?? '',
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -48,7 +48,7 @@ class NewsCard extends StatelessWidget {
 
                 NewsMetaData(
                   author: "${news.author}",
-                  publishedAt: DateTime.parse(news.publishedAt),
+                  publishedAt: DateTime.parse(news.publishedAt ?? ''),
                 ),
               ],
             ),

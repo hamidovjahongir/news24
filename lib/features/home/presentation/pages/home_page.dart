@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:news/features/home/data/repository/news_repository.dart';
-import 'package:news/features/home/presentation/bloc/news_bloc.dart';
+import 'package:news/features/home/presentation/controller/news_controller.dart';
 import 'package:news/features/home/presentation/widgets/newsappbar.dart';
 import 'package:news/features/home/presentation/widgets/newslistview.dart';
 import 'package:news/features/home/presentation/widgets/newstabbar.dart';
@@ -15,16 +15,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  final NewsRepository repository = NewsRepository();
   late TabController _tabController;
+  final NewsController controller = Get.put(NewsController(NewsRepository()));
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<NewsBloc>().add(GetNewsEvent());
-    });
   }
 
   @override
@@ -41,17 +38,23 @@ class _HomePageState extends State<HomePage>
         child: Column(
           children: [
             const NewsAppBar(),
-
             NewsTabBar(tabController: _tabController),
-
             Expanded(
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  const NewsListView(),
-                  const NewsListView(),
-                  const NewsListView(),
-                  const NewsListView(),
+                  Obx(() {
+                    if (controller.isLoading.value) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (controller.error.isNotEmpty) {
+                      return Center(child: Text(controller.error.value));
+                    } else {
+                      return NewsListView();
+                    }
+                  }),
+                  const Center(child: Text("Tab 2")),
+                  const Center(child: Text("Tab 3")),
+                  const Center(child: Text("Tab 4")),
                 ],
               ),
             ),

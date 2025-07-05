@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../bookmark/presentation/pages/bookmark.dart';
 import '../../../home/presentation/pages/home_page.dart';
 import '../../../search/presentation/pages/search_page.dart';

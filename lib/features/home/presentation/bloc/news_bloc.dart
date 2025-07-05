@@ -12,7 +12,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     on<GetNewsEvent>((event, emit) async {
       try {
         emit(NewsLoading());
-        final response = await repository.getNews(); // bu NewsModel
+        final response = await repository.getNews(); 
         emit(NewsSuccess(response.articles));
       } catch (e) {
         emit(NewsError(e.toString()));
